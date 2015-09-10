@@ -1,0 +1,33 @@
+compversion-id: 00000000000000000000
+component-key: sap_afl_sdk_intro
+server-plugin: 1
+keyname: sap_afl_sdk_intro
+keycaption: AFL SDK introduction example
+keyvendor: sap.com
+release: 1.0
+rev-number: 0
+rev-patchlevel: 3
+rev-changelist: 0
+makeid: 1
+date: 2015-09-07 01:52:00
+platform: linuxx86_64
+hdb-state: RAMP
+fullversion: 1.0.0.3
+compilebranch: undefined
+required-components: name="HDB"; vendor="sap.com"; version="[0.0.0.0,9999.9999.9999.9999)"
+hana_afl_sdk-major-version: 2
+hana_afl_sdk-minor-version: 1
+auxversion: 0000.00.0
+changeinfo: CONT 670e5b3b5e752ad431db82f02de4d15f3dc56a3d (fa/newdb100_rel)
+compiletype: rel
+compilebranch: fa/newdb100_rel
+git-hash: 670e5b3b5e752ad431db82f02de4d15f3dc56a3d
+git-headcount: 21
+git-mergetime: 2015-01-27 09:51:38
+git-mergeepoch: 1422348698
+sapexe-version: 720
+sapexe-branch: 720_EXT_REL
+sapexe-changelist: 1330613
+compiler-version-full: gcc (SAP release 20140516, based on SUSE gcc47-4.7.2_20130108-0.15.45) 4.7.2 20130108 [gcc-4_7-branch revision 195014]
+compiler-version: GCC 4.7
+

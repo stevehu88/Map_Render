@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?>
+
+<AFLXML xmlns="AFLInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--
+    This XML file describes the Application Functions (AFs) which are part of
+    this Application Function Library (AFL).
+
+    The first section below is a list of all the includes to be added in the
+    generated interface. The section which follows contains the specification
+    of the parameters that each AF takes. The member functions of the AF class
+    will be based on their corresponding C++ counter-parts.
+-->
+
+<CPP STRING="#include &lt;hana/table.h&gt;"/>
+<CPP STRING="#include &lt;hana/column.h&gt;"/>
+<CPP STRING="#include &lt;hana/string.h&gt;"/>
+
+
+<!--
+    We adhere to a convention in which a CxxxAFL C++ class will inherit from
+    another IxxxAFL C++ class as declared here. In this case, our interface
+    is called IIntroAFL.
+-->
+<AFLCLASS NAME="IntroAFL" GUID="900AB60B-8D93-4536-B254-21C342465954">
+
+    <LFUNC NAME="RENDER_TILE" CATEGORY="var_none">
+    	<PARAM NAME="inputZ" DIRECTION="in" TYPE="int" SQLTYPE="INTEGER"/>
+    	<PARAM NAME="inputX" DIRECTION="in" TYPE="int" SQLTYPE="INTEGER"/>
+    	<PARAM NAME="inputY" DIRECTION="in" TYPE="int" SQLTYPE="INTEGER"/>
+        
+        <PARAM NAME="inputTable" DIRECTION="in" TYPE="HANATABLE">
+	    	<COLUMN NAME="FROM_LNG" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/>
+            <COLUMN NAME="FROM_LAT" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/>
+	    	<COLUMN NAME="TO_LNG" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/>
+            <COLUMN NAME="TO_LAT" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/>
+            <COLUMN NAME="SPEED_LEVEL" CSTYPE="INT" SQLTYPE="INTEGER"/>
+            <COLUMN NAME="ONE_WAY" CSTYPE="INT" SQLTYPE="INTEGER"/>
+	    <COLUMN NAME="OFFSET" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/>
+ 	    <COLUMN NAME="STROKE_WIDTH" CSTYPE="DOUBLE" SQLTYPE="DOUBLE"/> 
+        </PARAM>
+        <PARAM NAME="outputTable" DIRECTION="out" TYPE="HANATABLE">
+	    <COLUMN NAME="Z" CSTYPE="INT" SQLTYPE="INTEGER"/>
+            <COLUMN NAME="X" CSTYPE="INT" SQLTYPE="INTEGER"/>
+	    <COLUMN NAME="Y" CSTYPE="INT" SQLTYPE="INTEGER"/>
+            <COLUMN NAME="CONTENT" CSTYPE="STRING" SQLTYPE="CLOB"/>
+        </PARAM>
+    </LFUNC>
+
+</AFLCLASS>
+
+</AFLXML>

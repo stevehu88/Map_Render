@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+May switch validation from DTD to schema later:
+<Installation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="installcfg.xsd">
+-->
+
+<!--
+DTD for validation
+
+<!DOCTYPE Installation SYSTEM "installcfg.dtd">
+-->
+
+<Installation>
+
+<!--
+Variables not defined in this file that are replaced internally by the installer:
+$(ProgramFiles)
+$(StartMenuPrograms)
+$(Desktop)
+-->
+
+<!-- Variables that can be used as $(Name) anywhere beyond the point of their definition -->
+<Variables>
+  <Variable>
+    <VarName>ProductName</VarName>
+    <VarValue>AFL SDK introduction example</VarValue>
+  </Variable>
+  <Variable>
+    <VarName>ShortProductName</VarName>
+    <VarValue>AFL SDK introduction example</VarValue>
+  </Variable>
+  <Variable>
+    <VarName>ProductKey</VarName>
+    <VarValue>sap_afl_sdk_intro</VarValue>
+  </Variable>
+  <Variable>
+   <VarName>ProductVersion</VarName>
+   <VarValue>1.0.0.3</VarValue>
+  </Variable>
+</Variables>
+
+<Product>
+  <ProductKey>$(ProductKey)</ProductKey>
+  <ProductName>$(ProductName)</ProductName>
+  <ShortProductName>$(ShortProductName)</ShortProductName>
+  <ProductVersion>$(ProductVersion)</ProductVersion>
+  <InstallType>GenericServerPlugin</InstallType>
+</Product>
+
+<!-- Installation parameters, can be used as %(ID) anywhere beyond the point of their definition -->
+<Parameters>
+  <ParamsWindows />
+  <ParamsUNIX />
+</Parameters>
+
+<Environment>
+  <EnvWindows />
+  <EnvUNIX />
+</Environment>
+
+<CreateDirectories>
+<DirWindows />
+<DirUNIX />
+</CreateDirectories>
+
+<ReplaceInFiles>
+  <ReplaceWindows />
+  <ReplaceUNIX />
+</ReplaceInFiles>
+
+<ExecuteCommands>
+  <ExecWindows />
+  <ExecUNIX />
+</ExecuteCommands>
+
+<Shortcuts>
+  <ScWindows />
+  <ScUNIX />
+</Shortcuts>
+
+<UninstallationEntry>
+  <!--
+  <UninstWindows>
+    <UninstKey>$(ProductKey)</UninstKey>
+    <UninstName>$(ProductName)</UninstName>
+    <UninstVersion>$(ProductVersion)</UninstVersion>
+  </UninstWindows>
+  <UninstUNIX>
+    <UninstKey>$(ProductKey)</UninstKey>
+    <UninstName>$(ProductName)</UninstName>
+    <UninstVersion>$(ProductVersion)</UninstVersion>
+  </UninstUNIX>
+  -->
+</UninstallationEntry>
+
+<RunProgramAfterInstallation>
+  <!-- 
+  <RunWindows />
+  <RunUNIX />
+  -->
+</RunProgramAfterInstallation>
+<ExecuteCommandsAtActivation>
+  <ExecAtActivationWindows />
+  <ExecAtActivationUNIX />
+</ExecuteCommandsAtActivation>
+
+</Installation>
+

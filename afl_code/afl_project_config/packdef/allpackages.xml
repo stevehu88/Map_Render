@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<packDefs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="allpackages.xsd">
+
+  <atomicConstraints>
+
+    <constraint id="win">
+      <matchPattern>
+        <perlName>$^O</perlName>
+        <expectedPattern>mswin</expectedPattern>
+      </matchPattern>
+    </constraint>
+
+    <constraint id="dbgMake">
+      <match>
+        <envName>MAKETYPE</envName>
+        <expectedValue>dbg</expectedValue>
+      </match>
+    </constraint>
+
+  </atomicConstraints>
+
+
+  <compoundConstraints>
+
+    <constraint id="notWin">
+      <not>
+        <constraint refid="win"/>
+      </not>
+    </constraint>
+
+    <constraint id="notDbgMake">
+      <not>
+        <constraint refid="dbgMake"/>
+      </not>
+    </constraint>
+
+  </compoundConstraints>
+
+
+  <packages>
+
+    <package id="sap_afl_sdk_intro">
+      <name>sap_afl_sdk_intro</name>
+      <archive>sap_afl_sdk_intro.tgz</archive>
+      <kitSubDir>packages</kitSubDir>
+      <interfaceVersion>0.5</interfaceVersion>
+      <softwareVersion>
+        <byManifest>
+          <manifestSrcPath>afl_project_config/manifest</manifestSrcPath>
+          <versionKey>release</versionKey>
+          <buildKey>fullversion</buildKey>
+        </byManifest>
+      </softwareVersion>
+      <desc>AFL SDK introduction example</desc>
+      <provides/>
+      <files>
+        <file>
+          <path><shlibExt>libaflintro</shlibExt></path>
+        </file>
+        <file>
+          <path>intro_area.pkg</path>
+        </file>
+        <file>
+          <path>intro.lst</path>
+        </file>
+      </files>
+    </package>
+
+  </packages>
+
+
+  <installer>
+    <files>
+      <file>
+        <path>instruntime/Carp.pm</path>
+      </file>
+      <file>
+        <path>instruntime/constant.pm</path>
+      </file>
+      <file>
+        <path>instruntime/Exporter/Heavy.pm</path>
+      </file>
+      <file>
+        <path>instruntime/Exporter.pm</path>
+      </file>
+      <file>
+        <path>instruntime/Getopt/Long.pm</path>
+      </file>
+      <file>
+        <path>instruntime/overload.pm</path>
+      </file>
+      <file>
+        <path>instruntime/strict.pm</path>
+      </file>
+      <file>
+        <path>instruntime/vars.pm</path>
+      </file>
+      <file>
+        <path>instruntime/warnings.pm</path>
+      </file>
+      <file>
+        <path>instruntime/warnings/register.pm</path>
+      </file>
+      <file>
+        <path>instruntime/SDBINST.TGZ</path>
+      </file>
+      <file constraint="notWin">
+        <path><shlibExt>instruntime/libperl</shlibExt></path>
+      </file>
+      <file constraint="win">
+        <path><shlibExt>instruntime/perl514</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Wx</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Grid</shlibExt></path>
+      </file>
+      <file constraint="win">
+        <path><shlibExt>instruntime/Win32</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/DND</shlibExt></path>
+      </file>
+      <file>
+        <path>instruntime/WXPERL.TGZ</path>
+      </file>
+      <file>
+        <path>instruntime/RESOURCES.TGZ</path>
+      </file>
+      <file constraint="win">
+        <path>instruntime/sdbrun.dll</path>
+      </file>
+      <file constraint="win">
+        <path>msvcr100.dll</path>
+      </file>
+      <file constraint="win">
+        <srcPath>msdev2010_vcredist_x64.exe</srcPath>
+        <path>packages/msdev2010_vcredist_x64.exe</path>
+      </file>
+      <div constraint="dbgMake">
+          <file constraint="win">
+            <path>instruntime/wxmsw28d_vc_sdb.dll</path>
+          </file>
+          <file constraint="notWin">
+            <path>instruntime/libwx_gtk2d-2.8.so.0</path>
+          </file>
+      </div>
+      <div constraint="notDbgMake">
+          <file constraint="win">
+            <path>instruntime/wxmsw28_vc_sdb.dll</path>
+          </file>
+          <file constraint="notWin">
+            <path>instruntime/libwx_gtk2-2.8.so.0</path>
+          </file>
+      </div>
+      <file>
+        <path><progExt>hdbinst</progExt></path>
+      </file>
+      <file>
+        <path><progExt>instruntime/sdbrun</progExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Base64</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Encode</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Dumper</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/LibXML</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/libxml2</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/HiRes</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/IO</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/Socket</shlibExt></path>
+      </file>
+      <file>
+        <path><shlibExt>instruntime/SQLDBC</shlibExt></path>
+      </file>
+    </files>
+  </installer>
+
+
+</packDefs>
+

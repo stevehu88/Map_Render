@@ -1,0 +1,33 @@
+# The name of the vendor of the AFL
+# The name must consist out of lower case letters only, and should be short.
+# It is recommended to use a domain name of the vendor, if it matches the requirements.
+VENDOR_NAME: sap
+
+# The name of the AFL
+# The name must consist out of lower case letters, digits or underscores only.
+# The first character must be a lower case letter.
+# The name of the AFL must be registered at SAP.
+AFL_NAME: intro
+
+# A one line description of the AFL
+# The description must consist out of printable ASCII characters only.
+AFL_CAPTION: AFL SDK introduction example
+
+# The version properties provide means to distinguish between different
+# versions of the same AFL.
+
+# The major version of the AFL
+# The version must consist out of digits only.
+AFL_MAJOR_VERSION: 1
+
+# The minor version of the AFL
+# The version must consist out of digits only.
+AFL_MINOR_VERSION: 0
+
+# The micro version of the AFL
+# The version must consist out of digits only.
+AFL_MICRO_VERSION: 0
+
+# The path version of the AFL
+# The version must consist out of digits only.
+AFL_PATCH_VERSION: 3

@@ -1,0 +1,39 @@
+******************************************************************************
+*                 Application Function Library SDK for HANA                  *
+******************************************************************************
+
+This is a simple demonstration of an AFL SDK project.
+
+For an overview of the SDK contents please refer to the README in the root
+directory of the SDK.
+
+-------------------
+--- Quick HOWTO ---
+-------------------
+
+1) Create a $HANA_SDK_PATH environment variable with the path where the SDK
+   is located.
+   - > export HANA_SDK_PATH=<...>
+
+2) Add the $HANA_SDK_PATH/tools directory to your $PATH:
+   - > export PATH=$PATH:$HANA_SDK_PATH/tools
+
+3) Build the example:
+   - > cd $HANA_SDK_PATH/demos/intro
+   - > aflmake intro
+
+4) Create an installer for the example:
+   - > cd $HANA_SDK_PATH/demos/intro
+   - > aflinstaller
+
+5) Install the example on a HANA test system as user root (system will be restarted):
+   - > cd $HANA_SDK_PATH/demos/intro/sap_intro_installer/installer
+   - > ./hdbinst -s <SID>
+   - Do not forget to enable the scriptserver!
+
+6) Execute functions from the example
+   - Connect a SQL console (e.g. HANA Studio) to your HANA instance with
+     administrative user (e.g. SYSTEM)
+   - Execute commands from "$HANA_SDK_PATH/demo/intro/invoke_intro.sql
+   - Switch back to administrative user
+   - Drop test user and all its data: DROP USER TESTAFL CASCADE

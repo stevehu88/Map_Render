@@ -1,0 +1,8 @@
+usage: according to speed for each segment, draw a png image with 25 * 256 pixels as map tile.
+
+AFL Version:SAP_HANA_AFL_SDK_100_090_0.tgz
+Additional lib: agg-2.4 png++-0.2.5 (including libpng)
+
+
+
+

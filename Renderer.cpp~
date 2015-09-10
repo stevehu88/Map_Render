@@ -1,0 +1,178 @@
+/*
+ * Renderer.cpp
+ *
+ *  Created on: Aug 31, 2015
+ *      Author: Steve Hu
+ */
+
+#include "Renderer.h"
+#include "agg2/agg_rendering_buffer.h"
+#include "agg2/agg_pixfmt_rgba.h"
+#include "agg2/agg_renderer_outline_aa.h"
+#include "agg2/agg_rasterizer_outline_aa.h"
+#include "agg2/agg_renderer_scanline.h"
+#include "agg2/agg_rasterizer_scanline_aa.h"
+#include "agg2/agg_scanline_p.h"
+#include "agg2/agg_conv_stroke.h"
+#include "agg2/agg_path_storage.h"
+
+#include "PngImage.h"
+
+void getSpeedColor(const int SpeedLevel, agg::rgba8& color);
+
+
+bool render(const Tile& tile,const std::vector<Segment>& segments,agg::rendering_buffer& rbuf)
+{
+	typedef agg::renderer_base<agg::pixfmt_rgba32> ren_base;
+	typedef agg::renderer_outline_aa<ren_base> renderer_oaa;
+	typedef agg::rasterizer_outline_aa<renderer_oaa> rasterizer_outline_aa;
+	typedef agg::renderer_scanline_aa_solid<ren_base> renderer;
+
+    agg::pixfmt_rgba32 pixf(rbuf);
+    ren_base renb(pixf);
+
+    renderer ren(renb);
+    agg::rasterizer_scanline_aa<> ras;
+    agg::scanline_p8 sl;
+
+    unsigned i = 0;
+    for (i=0; i < segments.size(); i++)
+    {
+    	Segment seg = segments[i];
+    	Node f_node = seg.getFromNode();
+    	Node t_node = seg.getToNode();
+
+    	Node f_pixl_node = f_node.project2pixl(tile, frame_width, frame_height);
+    	Node t_pixl_node = t_node.project2pixl(tile, frame_width, frame_height);
+
+    	agg::rgba8 color;
+    	getSpeedColor(seg.getSpeedLevel(), color);
+
+
+    	ren.color(color);
+    	agg::path_storage path;
+    	path.move_to(f_pixl_node.getLng(), f_pixl_node.getLat());
+    	path.line_to(t_pixl_node.getLng(), t_pixl_node.getLat());
+    	agg::conv_stroke<agg::path_storage> stroke(path);
+    	stroke.width(5.0);
+
+        agg::line_cap_e  cap = agg::round_cap;
+        agg::line_join_e join = agg::round_join;
+        stroke.line_join(join);
+        stroke.line_cap(cap);
+
+
+    	ras.reset();
+    	ras.add_path(stroke);
+    	agg::render_scanlines(ras,sl,ren);
+    }
+	return true;
+}
+
+
+bool render(const Tile& tile,const std::vector<Edge>& edges, agg::rendering_buffer& rbuf)
+{
+	typedef agg::renderer_base<agg::pixfmt_rgba32> ren_base;
+	typedef agg::renderer_outline_aa<ren_base> renderer_oaa;
+	typedef agg::rasterizer_outline_aa<renderer_oaa> rasterizer_outline_aa;
+	typedef agg::renderer_scanline_aa_solid<ren_base> renderer;
+
+    agg::pixfmt_rgba32 pixf(rbuf);
+    ren_base renb(pixf);
+
+    renderer ren(renb);
+    agg::rasterizer_scanline_aa<> ras;
+    agg::scanline_p8 sl;
+
+    unsigned i = 0;
+    for (i=0; i < edges.size(); i++)
+    {
+
+    	Edge edge = edges[i];
+
+    	agg::rgba8 color;
+    	int speedLevel = edge.getSpeedLevel();
+    	getSpeedColor(speedLevel, color);
+    	ren.color(color);
+
+    	agg::path_storage path;
+
+    	std::vector<Node> nodes = edge.getNodes();
+    	unsigned j = 0;
+    	for (j=0; j < nodes.size(); j++)
+    	{
+    		Node node = nodes[j];
+    		Node pixelNode = node.project2pixl(tile, frame_width, frame_height);
+    		if (j == 0)
+    		{
+    			path.move_to(pixelNode.getLng(), pixelNode.getLat());
+    		}
+    		else
+    		{
+    			path.line_to(pixelNode.getLng(), pixelNode.getLat());
+    		}
+    	}
+
+    	agg::conv_stroke<agg::path_storage> stroke(path);
+    	stroke.width(5.0);
+    	ras.reset();
+    	ras.add_path(stroke);
+//    	ras.clip_box(0,0,rbuf.width(), rbuf.height());
+    	agg::render_scanlines(ras,sl,ren);
+
+    }
+
+	return true;
+}
+
+
+void getSpeedColor(const int SpeedLevel, agg::rgba8& color)
+{
+	switch(SpeedLevel){
+		case 1:
+			color = agg::rgba8(0,117,2,255); //red
+			break;
+		case 2:
+			color = agg::rgba8(146,198,1,255); // green
+			break;
+		case 3:
+			color = agg::rgba8(255,255,1,255); // yellow
+			break;
+		case 4:
+			color = agg::rgba8(255,156,1,255); // blue
+			break;
+		case 5:
+			color = agg::rgba8(254,0,0,255);
+			break;
+		default:
+			color = agg::rgba8(0,0,0,0);
+	}
+	return;
+}
+
+
+
+bool getPngAsBase64(const Tile& tile,const std::vector<Segment>& segments,std::string& base64_str)
+{
+	agg::int8u* buffer = new agg::int8u[frame_width * frame_height * bytes_per_pixel];
+	memset(buffer, 0 , frame_width * frame_height * bytes_per_pixel);
+	agg::rendering_buffer rbuf = agg::rendering_buffer(buffer,
+			frame_width, frame_height, frame_width * bytes_per_pixel);
+	render(tile, segments, rbuf);
+	getBase64String(rbuf, base64_str);
+	delete [] buffer;
+	return true;
+}
+
+bool getPngAsBase64(const Tile& tile, const std::vector<Edge>& edges, std::string& base64_str)
+{
+	agg::int8u* buffer = new agg::int8u[frame_width * frame_height * bytes_per_pixel];
+	memset(buffer, 0 , frame_width * frame_height * bytes_per_pixel);
+	agg::rendering_buffer rbuf = agg::rendering_buffer(buffer,
+			frame_width, frame_height, frame_width * bytes_per_pixel);
+	render(tile, edges, rbuf);
+	getBase64String(rbuf, base64_str);
+	delete [] buffer;
+	return true;
+}
+
